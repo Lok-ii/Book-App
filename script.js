@@ -245,7 +245,7 @@ let dark = document.querySelector(".dark");
 let body = document.querySelector("body");
 let header = document.querySelector("header");
 let selected = document.querySelector(".selected");
-let categories = document.querySelector(".cat-container");
+let categories = document.querySelectorAll(".category-items");
 
 light.addEventListener("click", ()=>{
   dark.style.display = "block";
@@ -254,13 +254,6 @@ light.addEventListener("click", ()=>{
   body.style.backgroundColor = "var(--background-color)";
   body.style.color = "black";
   header.style.backgroundColor = "var(--background-color)";
-  selected.style.color = "var(--main-color)";
-  
-  categories.addEventListener("mouseover", (e)=>{
-    if(e.target.classList.contains("category-item")){
-      e.target.color = "var(--secondary-color)";
-    }
-  });
 });
 
 dark.addEventListener("click", ()=>{
@@ -270,11 +263,4 @@ dark.addEventListener("click", ()=>{
   body.style.backgroundColor = "var(--dark-background)";
   body.style.color = "white";
   header.style.backgroundColor = "var(--dark-background)";
-  selected.style.color = "var(--secondary-color)";
-
-  categories.addEventListener("mouseenter", (e)=>{
-    if(e.target.classList.contains("category-item")){
-      e.target.color = "var(--main-color)";
-    }
-  });
 });
