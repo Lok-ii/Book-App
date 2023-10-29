@@ -78,25 +78,24 @@ nav{
 }
 
 .light{
-    background-color: black;
+    background-color: var(--dark-background);
     color: white;
     display: none;
 }
 
 .light:hover{
-    color: black;
+    color: var(--dark-background);
     background-color: var(--background-color);
     border: 0.5px solid;
 }
 
 .dark{
     padding: 0.55rem 0.9rem;
-    background-color: white;
-    /* display: none; */
+    background-color: var(--background-color);
 }
 
 .dark:hover{
-    background-color: black;
+    background-color: var(--dark-background);
     color: white;
 }
 
