@@ -299,8 +299,10 @@ li:hover{
     padding: 2rem;
     background-color: var(--background-color);
     border-radius: 1rem;
-    /* box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3); */
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
     border: 2px solid black;
+    color: black;
+    transition: all 0.3s ease-in-out;
 }
 
 .book-info{
@@ -309,7 +311,6 @@ li:hover{
     align-items: flex-start;
     justify-content: flex-start;
     gap: 1.5rem;
-    /* padding: 1rem; */
 }
 
 .title{

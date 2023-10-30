@@ -62,6 +62,8 @@ let quickView = () => {
         .then((data) => {
           let detailsSection = document.createElement("section");
           detailsSection.classList.add("details");
+          detailsSection.classList.add("animate__animated");
+          detailsSection.classList.add("animate__zoomIn");
 
           let description = data.description;
           if (description === "") {
