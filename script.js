@@ -102,33 +102,34 @@ let quickView = () => {
   });
 };
 
-let fetchCategories = (e, catName) =>{
+let fetchCategories = (e, catName) => {
+  let categoryName = catName.split(" ");
+  let lastWord = categoryName[categoryName.length - 1];
+  let lastWordLength = categoryName[categoryName.length - 1].length;
+  let category = categoryName.join("+");
 
-    let loading = document.querySelector("#load");
-    loading.style.display = "flex";
+  let nameOfCategory = categoryName.join(" ");
 
-    let categoryName = catName.split(" ");
-    let lastWord = categoryName[categoryName.length - 1];
-    let lastWordLength = categoryName[categoryName.length - 1].length;
-    let category = categoryName.join("+");
+  let otherWords = nameOfCategory.substring(
+    0,
+    nameOfCategory.length - lastWordLength - 1
+  );
 
-    let nameOfCategory = categoryName.join(" ");
+  let url = `https://books-backend.p.goit.global/books/category?category=${category}`;
+  console.log(url);
 
-    let otherWords = nameOfCategory.substring(
-      0,
-      nameOfCategory.length - lastWordLength - 1
-    );
-
-    let url = `https://books-backend.p.goit.global/books/category?category=${category}`;
-    console.log(url);
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (e.target.classList.contains("category-item") || e.target.classList.contains("see-more")) {
-          setTimeout(() => {
-            let mainContainer = document.querySelector(".main-container");
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      let loading = document.querySelector("#load");
+      loading.style.display = "flex";
+      if (
+        e.target.classList.contains("category-item") ||
+        e.target.classList.contains("see-more")
+      ) {
+        setTimeout(() => {
+          let mainContainer = document.querySelector(".main-container");
           mainContainer.innerHTML = "";
           let bookList = document.createElement("div");
           bookList.className = "book-list";
@@ -139,15 +140,10 @@ let fetchCategories = (e, catName) =>{
           mainContainer.style.display = "none";
           addCategoryBooks(bookList, data);
           quickView();
-          }, 500);
-        }else{
-          let mainContainer = document.querySelector(".main-container");
-        mainContainer.style.display = "flex";
-        let loading = document.querySelector("#load");
-        loading.style.display = "none";
-        }
-      });
-}
+        }, 500);
+      }
+    });
+};
 
 let onLoad = async () => {
   let catContainer = document.querySelector(".cat-container");
@@ -210,15 +206,18 @@ window.onload = () => {
 
   catContainer.addEventListener("click", (e) => {
     let selected = document.querySelector(".selected");
-    selected.classList.remove("selected");
-    e.target.classList.add("selected");
-    let catName = e.target.innerText;
-    fetchCategories(e, catName);
+
+    if (e.target.classList.contains("category-item")) {
+      selected.classList.remove("selected");
+      e.target.classList.add("selected");
+      let catName = e.target.innerText;
+      fetchCategories(e, catName);
+    }
   });
 
   let seeMore = document.querySelector(".main-container");
-  seeMore.addEventListener("click", (e)=>{
-    if(e.target.classList.contains("see-more")){
+  seeMore.addEventListener("click", (e) => {
+    if (e.target.classList.contains("see-more")) {
       let selected = document.querySelector(".selected");
       selected.classList.remove("selected");
       let catName = e.target.parentElement.firstElementChild.innerText;
@@ -226,13 +225,13 @@ window.onload = () => {
 
       let allCat = document.querySelectorAll(".category-item");
 
-      allCat.forEach((ele) =>{
+      allCat.forEach((ele) => {
         if (ele.innerText === catName) {
           ele.classList.add("selected");
         }
-      })
+      });
     }
-  })
+  });
 };
 
 let allCategories = document.querySelector(".all-categories");
@@ -241,7 +240,6 @@ allCategories.addEventListener("click", () => {
   window.location.reload();
 });
 
-
 let light = document.querySelector(".light");
 let dark = document.querySelector(".dark");
 let body = document.querySelector("body");
@@ -249,7 +247,7 @@ let header = document.querySelector("header");
 let selected = document.querySelector(".selected");
 let categories = document.querySelectorAll(".category-items");
 
-light.addEventListener("click", ()=>{
+light.addEventListener("click", () => {
   dark.style.display = "block";
   light.style.display = "none";
 
@@ -258,7 +256,7 @@ light.addEventListener("click", ()=>{
   header.style.backgroundColor = "var(--background-color)";
 });
 
-dark.addEventListener("click", ()=>{
+dark.addEventListener("click", () => {
   dark.style.display = "none";
   light.style.display = "block";
 
